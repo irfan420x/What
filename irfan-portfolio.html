@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRFAN - Ethical Hacker & AI Developer</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --primary-dark: #0a0a14;
+            --accent-cyan: #00f3ff;
+            --accent-magenta: #ff00ff;
+            --accent-purple: #8a2be2;
+            --text-light: #e0e0ff;
+            --text-medium: #a0a0c0;
+            --bg-glass: rgba(10, 10, 20, 0.8);
+            --glow-cyan: 0 0 20px rgba(0, 243, 255, 0.5);
+            --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Common Section Styles */
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            font-weight: 700;
+        }
+
+        .accent {
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--glow-cyan);
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2); }
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-item a:hover {
+            color: var(--accent-cyan);
+            background: rgba(0, 243, 255, 0.1);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: var(--accent-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .theme-switcher {
+            background: none;
+            border: 2px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .theme-switcher:hover {
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
+            box-shadow: var(--glow-cyan);
+            transform: rotate(180deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background: var(--accent-cyan);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 243, 255, 0.2) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-purple);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: var(--text-medium);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-magenta));
+            color: var(--primary-dark);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 2px solid var(--accent-cyan);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .hero-graphic {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .cyber-graphic {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* About Section Styles */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-intro {
+            font-size: 1.3rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow-cyan);
+            border-color: var(--accent-cyan);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-medium);
+            font-weight: 500;
+        }
+
+        /* Skills Section Styles */
+        .skills {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(0, 243, 255, 0.1));
+        }
+
+        .skills-grid {
+            display: grid;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .skill-item {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .skill-percent {
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        .skill-bar {
+            background: rgba(160, 160, 192, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+            border-radius: 4px;
+            width: 0;
+            transition: width 2s ease;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        /* Projects Section Styles */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 40px rgba(0, 243, 255, 0.2);
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .project-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .project-description {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: var(--text-medium);
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 243, 255, 0.2);
+            color: var(--accent-cyan);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-link {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: var(--accent-magenta);
+        }
+
+        .project-year {
+            color: var(--text-medium);
+            font-weight: 500;
+        }
+
+        /* Tools Section Styles */
+        .tools {
+            background: var(--primary-dark);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+        }
+
+        .tool-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .tool-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tool-input-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .tool-input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .tool-btn {
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-magenta));
+            border: none;
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .terminal-output {
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .terminal-header {
+            background: rgba(0, 243, 255, 0.1);
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .terminal-title {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27ca3f; }
+
+        .terminal-body {
+            padding: 1rem;
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .terminal-line {
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .password-results {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .strength-bar {
+            background: rgba(160, 160, 192, 0.2);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .strength-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            width: 0;
+        }
+
+        .strength-text {
+            position: absolute;
+            top: -25px;
+            left: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .security-metrics {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .metric-label {
+            color: var(--text-medium);
+        }
+
+        .metric-value {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Contact Section Styles */
+        .contact {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(0, 243, 255, 0.1));
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-heading {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .contact-description {
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: var(--text-medium);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 50%;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .column-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            list-style: none;
+        }
+
+        .contact-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-links a {
+            color: var(--text-medium);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-links a:hover {
+            color: var(--accent-cyan);
+            padding-left: 10px;
+        }
+
+        .contact-info {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-medium);
+        }
+
+        .contact-item i {
+            color: var(--accent-cyan);
+            width: 20px;
+        }
+
+        .newsletter-text {
+            color: var(--text-medium);
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 25px;
+            padding: 0.8rem 1rem;
+            color: var(--text-light);
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+        }
+
+        .newsletter-btn {
+            background: var(--accent-cyan);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--accent-magenta);
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .footer-warning {
+            margin-top: 1rem;
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--bg-glass);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .cyber-graphic {
+                width: 300px;
+                height: 300px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-input-group {
+                flex-direction: column;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav-container">
+            <div class="logo">IRFAN</div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="#home">Home</a></li>
+                <li class="nav-item"><a href="#about">About</a></li>
+                <li class="nav-item"><a href="#skills">Skills</a></li>
+                <li class="nav-item"><a href="#projects">Projects</a></li>
+                <li class="nav-item"><a href="#tools">Tools</a></li>
+                <li class="nav-item"><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-switcher" id="theme-switcher">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="mobile-menu" id="mobile-menu">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span id="typed-title"></span>
+                </h1>
+                <h2 class="hero-subtitle">
+                    <span id="typed-subtitle"></span>
+                </h2>
+                <p class="hero-description">
+                    Specializing in penetration testing, AI-driven security solutions, and innovative cybersecurity frameworks. 
+                    Protecting digital infrastructures while pushing the boundaries of ethical hacking and artificial intelligence.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                </div>
+            </div>
+            <div class="hero-graphic">
+                <div class="cyber-graphic" id="cyber-graphic">
+                    <!-- 3D graphic will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section" id="about">
+        <div class="container">
+            <h2 class="section-title">About <span class="accent">Me</span></h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-intro">
+                        I'm a passionate ethical hacker and AI developer with over 8 years of experience in cybersecurity. 
+                        My mission is to create a safer digital world through innovative security solutions and cutting-edge AI technology.
+                    </p>
+                    <p>
+                        Specializing in penetration testing, vulnerability assessment, and AI-driven security automation, 
+                        I help organizations strengthen their digital defenses while staying ahead of emerging threats.
+                    </p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card" data-count="150">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-card" data-count="98">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Success Rate (%)</div>
+                    </div>
+                    <div class="stat-card" data-count="50">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Clients Worldwide</div>
+                    </div>
+                    <div class="stat-card" data-count="12">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Certifications</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills section" id="skills">
+        <div class="container">
+            <h2 class="section-title">Skill <span class="accent">Matrix</span></h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Penetration Testing</span>
+                        <span class="skill-percent">95%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="95"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">AI Development</span>
+                        <span class="skill-percent">90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Network Security</span>
+                        <span class="skill-percent">92%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="92"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Python Development</span>
+                        <span class="skill-percent">97%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="97"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Cryptography</span>
+                        <span class="skill-percent">88%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="88"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Malware Analysis</span>
+                        <span class="skill-percent">85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="85"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects section" id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured <span class="accent">Projects</span></h2>
+            <div class="projects-grid">
+                <div class="project-card" data-tilt data-tilt-max="15" data-tilt-speed="1000">
+                    <div class="project-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">AI-Powered Threat Detection</h3>
+                        <p class="project-description">
+                            Advanced machine learning system that identifies and analyzes potential security threats 
+                            in real-time, achieving 99.2% accuracy in threat classification.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">Cybersecurity</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="#" class="project-link">
+                                View Project <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <span class="project-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-tilt data-tilt-max="15" data-tilt-speed="1000">
+                    <div class="project-icon">
+                        <i class="fab fa-bitcoin"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Blockchain Security Framework</h3>
+                        <p class="project-description">
+                            Comprehensive security framework for blockchain applications, featuring smart contract 
+                            auditing tools and vulnerability assessment protocols.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Solidity</span>
+                            <span class="tech-tag">Web3</span>
+                            <span class="tech-tag">Security</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="#" class="project-link">
+                                View Project <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <span class="project-year">2023</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-tilt data-tilt-max="15" data-tilt-speed="1000">
+                    <div class="project-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Network Penetration Suite</h3>
+                        <p class="project-description">
+                            Automated penetration testing toolkit with advanced network discovery, 
+                            vulnerability scanning, and exploitation capabilities.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Nmap</span>
+                            <span class="tech-tag">Metasploit</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="#" class="project-link">
+                                View Project <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <span class="project-year">2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools section" id="tools">
+        <div class="container">
+            <h2 class="section-title">Security <span class="accent">Tools</span></h2>
+            <div class="tools-grid">
+                <!-- Vulnerability Scanner Tool -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <h3 class="tool-title">
+                            <i class="fas fa-shield-alt"></i>
+                            Vulnerability Scanner
+                        </h3>
+                    </div>
+                    <div class="tool-content">
+                        <div class="tool-input-group">
+                            <input type="text" id="scan-target" placeholder="Enter target URL or IP address" class="tool-input">
+                            <button id="scan-btn" class="tool-btn">
+                                <span class="btn-text">Scan Target</span>
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="terminal-output" id="scan-output">
+                            <div class="terminal-header">
+                                <span class="terminal-title">Security Assessment Terminal</span>
+                                <div class="terminal-controls">
+                                    <span class="terminal-dot red"></span>
+                                    <span class="terminal-dot yellow"></span>
+                                    <span class="terminal-dot green"></span>
+                                </div>
+                            </div>
+                            <div class="terminal-body" id="scan-terminal">
+                                <div class="terminal-line">Ready to scan... Enter target and click 'Scan Target'</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password Analyzer Tool -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <h3 class="tool-title">
+                            <i class="fas fa-key"></i>
+                            Password Strength Analyzer
+                        </h3>
+                    </div>
+                    <div class="tool-content">
+                        <div class="tool-input-group">
+                            <input type="password" id="password-input" placeholder="Enter password to analyze" class="tool-input">
+                            <button id="analyze-btn" class="tool-btn">
+                                <span class="btn-text">Analyze</span>
+                                <i class="fas fa-microscope"></i>
+                            </button>
+                        </div>
+                        <div class="password-results" id="password-results">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strength-fill"></div>
+                                <span class="strength-text" id="strength-text">Enter password</span>
+                            </div>
+                            <div class="security-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">Brute-force Resistance:</span>
+                                    <span class="metric-value" id="brute-force">-</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Dictionary Attack:</span>
+                                    <span class="metric-value" id="dictionary">-</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Estimated Crack Time:</span>
+                                    <span class="metric-value" id="crack-time">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
+            <div class="contact-grid">
+                <div class="contact-column">
+                    <h3 class="contact-heading">IRFAN</h3>
+                    <p class="contact-description">
+                        Ready to secure your digital future? Let's discuss how we can strengthen your cybersecurity posture.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-column">
+                    <h4 class="column-title">Navigation</h4>
+                    <ul class="contact-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#tools">Tools</a></li>
+                    </ul>
+                </div>
+
+                <div class="contact-column">
+                    <h4 class="column-title">Contact Info</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>irfan@cybersec.dev</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Global Remote</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-telegram"></i>
+                            <span>@IrfanCyberSec</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-column">
+                    <h4 class="column-title">Newsletter</h4>
+                    <p class="newsletter-text">Stay updated with the latest in cybersecurity</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <input type="email" placeholder="Your email address" class="newsletter-input" required>
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> IRFAN. All rights reserved. | Ethical Hacking & AI Development</p>
+                <div class="footer-warning">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>This website demonstrates security tools for educational purposes only.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00f3ff' },
+                shape: {
+                    type: 'circle',
+                    stroke: { width: 0, color: '#000000' }
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false,
+                    anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: { enable: false, speed: 40, size_min: 0.1, sync: false }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00f3ff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 6,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: { enable: false, rotateX: 600, rotateY: 1200 }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 400, line_linked: { opacity: 1 } },
+                    bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                    repulse: { distance: 200, duration: 0.4 },
+                    push: { particles_nb: 4 },
+                    remove: { particles_nb: 2 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Typing Animation
+        const typedTitle = new Typed('#typed-title', {
+            strings: ['TRANSFORMING SECURITY', 'THROUGH INNOVATION'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 2000,
+            startDelay: 500,
+            loop: true
+        });
+
+        const typedSubtitle = new Typed('#typed-subtitle', {
+            strings: ['ETHICAL HACKER & AI DEVELOPER', 'CYBERSECURITY SPECIALIST', 'PENETRATION TESTING EXPERT'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 3000,
+            startDelay: 2000,
+            loop: true
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Theme Switcher
+        const themeSwitcher = document.getElementById('theme-switcher');
+        let isDarkMode = true;
+
+        themeSwitcher.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            if (isDarkMode) {
+                themeSwitcher.innerHTML = '<i class="fas fa-moon"></i>';
+                document.documentElement.style.setProperty('--primary-dark', '#0a0a14');
+                document.documentElement.style.setProperty('--text-light', '#e0e0ff');
+            } else {
+                themeSwitcher.innerHTML = '<i class="fas fa-sun"></i>';
+                document.documentElement.style.setProperty('--primary-dark', '#f5f5f5');
+                document.documentElement.style.setProperty('--text-light', '#2a2a2a');
+            }
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            themeSwitcher.click();
+        }
+
+        // 3D Cyber Graphic with Three.js
+        function initCyberGraphic() {
+            const container = document.getElementById('cyber-graphic');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            
+            renderer.setSize(400, 400);
+            container.appendChild(renderer.domElement);
+
+            // Create cyber geometric shape
+            const geometry = new THREE.OctahedronGeometry(1, 2);
+            const material = new THREE.MeshBasicMaterial({
+                color: 0x00f3ff,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.8
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            // Add inner sphere
+            const innerGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+            const innerMaterial = new THREE.MeshBasicMaterial({
+                color: 0xff00ff,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.5
+            });
+            const innerMesh = new THREE.Mesh(innerGeometry, innerMaterial);
+            scene.add(innerMesh);
+
+            camera.position.z = 3;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                mesh.rotation.x += 0.01;
+                mesh.rotation.y += 0.01;
+                innerMesh.rotation.x -= 0.015;
+                innerMesh.rotation.y -= 0.015;
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 10, 20, 0.95)';
+            } else {
+                header.style.background = 'rgba(10, 10, 20, 0.8)';
+            }
+        });
+
+        // Stats Counter Animation
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 200;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current);
+            }, 10);
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animate stats
+                    if (entry.target.classList.contains('stat-card')) {
+                        const number = entry.target.querySelector('.stat-number');
+                        const target = parseInt(entry.target.dataset.count);
+                        animateCounter(number, target);
+                    }
+                    
+                    // Animate skill bars
+                    if (entry.target.classList.contains('skill-progress')) {
+                        const width = entry.target.dataset.width;
+                        entry.target.style.width = width + '%';
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Vulnerability Scanner Tool
+        function initVulnerabilityScanner() {
+            const scanBtn = document.getElementById('scan-btn');
+            const scanTarget = document.getElementById('scan-target');
+            const terminal = document.getElementById('scan-terminal');
+            
+            scanBtn.addEventListener('click', () => {
+                const target = scanTarget.value;
+                
+                if (!target) {
+                    terminal.innerHTML = '<div class="terminal-line" style="color: #ff5f56;">Error: Please enter a target URL or IP address</div>';
+                    return;
+                }
+                
+                terminal.innerHTML = '<div class="terminal-line">Initializing scan...</div>';
+                
+                const scanSteps = [
+                    'Starting vulnerability assessment...',
+                    `Target: ${target}`,
+                    'Scanning ports...',
+                    'Port 22: OPEN (SSH)',
+                    'Port 80: OPEN (HTTP)',
+                    'Port 443: OPEN (HTTPS)',
+                    'Checking for common vulnerabilities...',
+                    'Testing SSL/TLS configuration...',
+                    'Analyzing HTTP headers...',
+                    'Checking for SQL injection vectors...',
+                    'Scanning for XSS vulnerabilities...',
+                    'Assessment complete!',
+                    '',
+                    '=== SECURITY ASSESSMENT RESULTS ===',
+                    'Overall Security Rating: 7.5/10',
+                    'Critical Issues: 0',
+                    'High Priority: 2',
+                    'Medium Priority: 4',
+                    'Low Priority: 8',
+                    '',
+                    'Recommendations:',
+                    '• Update SSL/TLS configuration',
+                    '• Implement additional security headers',
+                    '• Regular security audits recommended'
+                ];
+                
+                let i = 0;
+                const interval = setInterval(() => {
+                    if (i < scanSteps.length) {
+                        terminal.innerHTML += `<div class="terminal-line">${scanSteps[i]}</div>`;
+                        terminal.scrollTop = terminal.scrollHeight;
+                        i++;
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 300);
+            });
+        }
+
+        // Password Analyzer Tool
+        function initPasswordAnalyzer() {
+            const analyzeBtn = document.getElementById('analyze-btn');
+            const passwordInput = document.getElementById('password-input');
+            const strengthText = document.getElementById('strength-text');
+            const strengthFill = document.getElementById('strength-fill');
+            const bruteForce = document.getElementById('brute-force');
+            const dictionary = document.getElementById('dictionary');
+            const crackTime = document.getElementById('crack-time');
+            
+            function analyzePassword() {
+                const password = passwordInput.value;
+                
+                if (!password) {
+                    strengthText.textContent = 'Enter password';
+                    strengthFill.style.width = '0%';
+                    bruteForce.textContent = '-';
+                    dictionary.textContent = '-';
+                    crackTime.textContent = '-';
+                    return;
+                }
+                
+                // Calculate password strength
+                let score = 0;
+                
+                // Length check
+                if (password.length >= 8) score += 20;
+                if (password.length >= 12) score += 15;
+                if (password.length >= 16) score += 10;
+                
+                // Character variety
+                if (/[a-z]/.test(password)) score += 10;
+                if (/[A-Z]/.test(password)) score += 10;
+                if (/[0-9]/.test(password)) score += 10;
+                if (/[^A-Za-z0-9]/.test(password)) score += 15;
+                
+                // Patterns
+                if (!/(.)\1{2,}/.test(password)) score += 10;
+                if (!/123|abc|qwe/i.test(password)) score += 10;
+                
+                // Determine strength level and color
+                let strengthTextValue, strengthColor, crackTimeValue, bruteForceValue, dictionaryValue;
+                
+                if (score < 30) {
+                    strengthTextValue = 'Very Weak';
+                    strengthColor = '#ff0000';
+                    crackTimeValue = 'Instantly';
+                    bruteForceValue = 'Extremely Vulnerable';
+                    dictionaryValue = 'Highly Vulnerable';
+                } else if (score < 50) {
+                    strengthTextValue = 'Weak';
+                    strengthColor = '#ff6600';
+                    crackTimeValue = 'Less than 1 hour';
+                    bruteForceValue = 'Vulnerable';
+                    dictionaryValue = 'Vulnerable';
+                } else if (score < 70) {
+                    strengthTextValue = 'Moderate';
+                    strengthColor = '#ffaa00';
+                    crackTimeValue = '1-3 days';
+                    bruteForceValue = 'Moderately Secure';
+                    dictionaryValue = 'Moderately Secure';
+                } else if (score < 85) {
+                    strengthTextValue = 'Strong';
+                    strengthColor = '#66ff00';
+                    crackTimeValue = '3 months - 2 years';
+                    bruteForceValue = 'Secure';
+                    dictionaryValue = 'Secure';
+                } else {
+                    strengthTextValue = 'Very Strong';
+                    strengthColor = '#00ff00';
+                    crackTimeValue = '100+ years';
+                    bruteForceValue = 'Highly Secure';
+                    dictionaryValue = 'Highly Secure';
+                }
+                
+                // Update UI
+                strengthText.textContent = strengthTextValue;
+                strengthText.style.color = strengthColor;
+                strengthFill.style.width = score + '%';
+                strengthFill.style.background = strengthColor;
+                bruteForce.textContent = bruteForceValue;
+                dictionary.textContent = dictionaryValue;
+                crackTime.textContent = crackTimeValue;
+            }
+            
+            analyzeBtn.addEventListener('click', analyzePassword);
+            passwordInput.addEventListener('input', analyzePassword);
+        }
+
+        // Newsletter form submission
+        function initNewsletter() {
+            const newsletterForm = document.getElementById('newsletter-form');
+            
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = e.target.querySelector('.newsletter-input').value;
+                
+                // Simulate encryption animation
+                const button = e.target.querySelector('.newsletter-btn');
+                button.innerHTML = '<i class="fas fa-lock"></i>';
+                
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    e.target.querySelector('.newsletter-input').value = '';
+                    
+                    setTimeout(() => {
+                        button.innerHTML = '<i class="fas fa-paper-plane"></i>';
+                    }, 2000);
+                }, 1000);
+            });
+        }
+
+        // Initialize all functionality when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize 3D graphic
+            initCyberGraphic();
+            
+            // Initialize security tools
+            initVulnerabilityScanner();
+            initPasswordAnalyzer();
+            initNewsletter();
+            
+            // Initialize Vanilla Tilt for project cards
+            if (typeof VanillaTilt !== 'undefined') {
+                VanillaTilt.init(document.querySelectorAll('.project-card'), {
+                    max: 25,
+                    speed: 1000,
+                    glare: true,
+                    'max-glare': 0.2
+                });
+            }
+            
+            // Observe stat cards for counter animation
+            document.querySelectorAll('.stat-card').forEach(card => {
+                observer.observe(card);
+            });
+            
+            // Observe skill progress bars
+            document.querySelectorAll('.skill-progress').forEach(progress => {
+                observer.observe(progress);
+            });
+            
+            // Set current year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+
+        // Voice Command System (Advanced Feature)
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            
+            recognition.continuous = false;
+            recognition.lang = 'en-US';
+            
+            recognition.onresult = (event) => {
+                const command = event.results[0][0].transcript.toLowerCase();
+                
+                if (command.includes('show projects') || command.includes('projects')) {
+                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                } else if (command.includes('contact') || command.includes('get in touch')) {
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                } else if (command.includes('about')) {
+                    document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+                } else if (command.includes('skills')) {
+                    document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
+                } else if (command.includes('tools')) {
+                    document.getElementById('tools').scrollIntoView({ behavior: 'smooth' });
+                } else if (command.includes('home')) {
+                    document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+            
+            // Add voice control button
+            const voiceBtn = document.createElement('button');
+            voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+            voiceBtn.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                border: 2px solid var(--accent-cyan);
+                background: var(--bg-glass);
+                color: var(--accent-cyan);
+                font-size: 1.5rem;
+                cursor: pointer;
+                z-index: 1000;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(20px);
+            `;
+            
+            voiceBtn.addEventListener('click', () => {
+                recognition.start();
+                voiceBtn.style.background = 'var(--accent-cyan)';
+                voiceBtn.style.color = 'var(--primary-dark)';
+                
+                setTimeout(() => {
+                    voiceBtn.style.background = 'var(--bg-glass)';
+                    voiceBtn.style.color = 'var(--accent-cyan)';
+                }, 3000);
+            });
+            
+            document.body.appendChild(voiceBtn);
+        }
+
+        // Console warning
+        console.warn(`
+🛡️ SECURITY NOTICE 🛡️
+
+This website demonstrates cybersecurity tools for educational purposes only.
+Unauthorized access to computer systems is illegal.
+
+Always obtain proper authorization before testing security tools.
+
+For legitimate security testing, contact: irfan@cybersec.dev
+        `);
+
+        // Performance optimization
+        window.addEventListener('load', () => {
+            // Lazy load images and optimize performance
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+            
+            images.forEach(img => imageObserver.observe(img));
+        });
+    </script>
+
+</body>
+</html>
